@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Phone {
+            constructor(name, pin) {
+                this.name = name;
+                this.pin = pin;                
+                this.ibSent = [];
+                this.ibEdit = [];
+                this.ibRecived = [];  
+                this.inbox = [this.ibEdit, this.ibSent, this.ibRecived];          
+                this.pw = false;
+            }
+
+
+            setPW(boolean) {
+
+                if (boolean == true)
+                return this.pw=true;
+                else 
+                return this.pw;
+            }
+
+            checkPW() {
+                return this.pw;
+            }
+
+            chargePW() {
+                if (this.pin == 100) {
+                    return this.pin;
+                }
+                else
+                    return this.pin++;
+            }
+
+            decreasePW() {
+               this.pin--;
+            }
+
+            editMess(string) {
+                if (this.checkPW() == true) {
+                    this.decreasePW();
+                    this.ibEdit = string + ' -from edit' + '<br>';
+                
+                }
+                else if(this.setPW()==false)
+                    alert('Please charge the battery or pin ON');
+            }
+            sentMess(string, name) {
+                if (this.checkPW==false){
+                    alert('Please charge the battery or pin ON');
+                }
+                else {
+                   let i=0;
+                    name.ibRecived[i] = string + ' (r)from:' + this.name ;                
+                    this.ibSent = string + 'from sent'+'<br>';
+                    i++;                   
+                    this.decreasePW();
+                    return this.inbox;
+                }
+
+            }
+            recivedMess() {
+                if (this.checkPW() == true) {
+                    this.decreasePW();
+                    return this.ibRecived;
+                }
+                else if(this.setPW()==false)
+                alert('Please charge the battery or pin ON');
+            }
+            getInbox() {
+                if (this.checkPW() == true) {
+                    this.decreasePW();
+                    return this.inbox();
+                } else if(this.setPW()==false)
+                alert('Please charge the battery or pin ON');
+            }
+
+            getIbSent() {
+                if (this.checkPW() == true) {
+                    this.decreasePW();
+                    return 'message sent:' + ' ' + this.ibSent;
+                } else if(this.setPW()==false)
+                alert('Please charge the battery or pin ON');
+            }
+        };
+
+        let ip1 = new Phone('iphone', 100);
+        let nokia = new Phone('nokia',10);
+        ip1.setPW(true);
+        ip1.sentMess('i love u 3000',nokia);
+        console.log(ip1.checkPW()+' pin:'+ip1.pin);
+        // console.log(ip1.getInbox() + '&' + ip1.getIbSent());
+        // console.log(ip1.checkPW());
+        // let ip2 = new Phone(2, 10);
+        // ip2.setPW('ON');
+        // console.log('inbox recived: ' + ip2.recivedMess() + '<br>');
+        console.log(nokia.inbox);
+
+
+    </script>
+</body>
+
+</html>
